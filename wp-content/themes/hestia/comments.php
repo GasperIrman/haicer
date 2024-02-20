@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying comments
  *
@@ -14,22 +15,24 @@
  * the visitor has not yet entered the password we will
  * return early without loading the comments.
  */
-if ( post_password_required() ) {
+if (post_password_required()) {
 	return;
 }
 ?>
 
-<div id="comments" class="section section-comments">
+<!-- to odkomentiras ce hoces komentarje na blogih -->
+
+<!-- <div id="comments" class="section section-comments">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="media-area">
 				<h3 class="hestia-title text-center">
 					<?php
 					$comments_number = get_comments_number();
-					if ( 0 !== $comments_number ) {
-						if ( 1 === $comments_number ) {
+					if (0 !== $comments_number) {
+						if (1 === $comments_number) {
 							/* translators: %s: post title */
-							_x( 'One comment', 'comments title', 'hestia' );
+							_x('One comment', 'comments title', 'hestia');
 						} else {
 							printf(
 								/* translators: 1: number of comments, 2: post title */
@@ -40,15 +43,15 @@ if ( post_password_required() ) {
 									'comments title',
 									'hestia'
 								),
-								number_format_i18n( $comments_number )
+								number_format_i18n($comments_number)
 							);
 						}
 					}
 					?>
 				</h3>
 				<?php
-				wp_list_comments( 'type=comment&callback=hestia_comments_list' );
-				wp_list_comments( 'type=pings&callback=hestia_comments_list' );
+				wp_list_comments('type=comment&callback=hestia_comments_list');
+				wp_list_comments('type=pings&callback=hestia_comments_list');
 
 				$pages = paginate_comments_links(
 					array(
@@ -56,9 +59,9 @@ if ( post_password_required() ) {
 						'type' => 'array',
 					)
 				);
-				if ( is_array( $pages ) ) {
+				if (is_array($pages)) {
 					echo '<div class="text-center"><ul class="nav pagination pagination-primary">';
-					foreach ( $pages as $page ) {
+					foreach ($pages as $page) {
 						echo '<li>' . $page . '</li>';
 					}
 					echo '</ul></div>';
@@ -69,15 +72,15 @@ if ( post_password_required() ) {
 			<div class="media-body">
 				<?php
 				ob_start();
-				comment_form( hestia_comments_template() );
-				echo str_replace( '<form', '<form autocomplete="off" ', ob_get_clean() );
+				comment_form(hestia_comments_template());
+				echo str_replace('<form', '<form autocomplete="off" ', ob_get_clean());
 				?>
-				<?php if ( ! comments_open() && get_comments_number() ) : ?>
-					<?php if ( is_single() ) : ?>
-						<h4 class="no-comments hestia-title text-center"><?php esc_html_e( 'Comments are closed.', 'hestia' ); ?></h4>
+				<?php if (!comments_open() && get_comments_number()) : ?>
+					<?php if (is_single()) : ?>
+						<h4 class="no-comments hestia-title text-center"><?php esc_html_e('Comments are closed.', 'hestia'); ?></h4>
 					<?php endif; ?>
 				<?php endif; ?>
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->

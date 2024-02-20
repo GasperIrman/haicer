@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Footer Main Manager
  *
@@ -8,15 +9,17 @@
 /**
  * Class Hestia_Footer
  */
-class Hestia_Footer extends Hestia_Abstract_Main {
+class Hestia_Footer extends Hestia_Abstract_Main
+{
 
 	/**
 	 * Initialization of the feature.
 	 */
-	public function init() {
-		add_action( 'hestia_do_footer', array( $this, 'the_footer_content' ) );
-		add_filter( 'wp_nav_menu_args', array( $this, 'modify_footer_menu_classes' ) );
-		add_action( 'hestia_do_bottom_footer_content', array( $this, 'bottom_footer_content' ) );
+	public function init()
+	{
+		add_action('hestia_do_footer', array($this, 'the_footer_content'));
+		add_filter('wp_nav_menu_args', array($this, 'modify_footer_menu_classes'));
+		add_action('hestia_do_bottom_footer_content', array($this, 'bottom_footer_content'));
 	}
 
 	/**
@@ -24,15 +27,16 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	 *
 	 * @return array
 	 */
-	private function get_footer_sidebars() {
+	private function get_footer_sidebars()
+	{
 		$footer_sidebars_array = array(
 			'footer-one-widgets',
 			'footer-two-widgets',
 			'footer-three-widgets',
 			'footer-four-widgets',
 		);
-		$number_of_sidebars    = get_theme_mod( 'hestia_nr_footer_widgets', '3' );
-		$footer_sidebars_array = array_slice( $footer_sidebars_array, 0, $number_of_sidebars );
+		$number_of_sidebars    = get_theme_mod('hestia_nr_footer_widgets', '3');
+		$footer_sidebars_array = array_slice($footer_sidebars_array, 0, $number_of_sidebars);
 
 		return $footer_sidebars_array;
 	}
@@ -40,31 +44,32 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	/**
 	 * Render the footer sidebars.
 	 */
-	private function render_footer_sidebars() {
-		if ( ! $this->does_footer_have_widgets() ) {
+	private function render_footer_sidebars()
+	{
+		if (!$this->does_footer_have_widgets()) {
 			return;
 		}
 
 		$sidebars = $this->get_footer_sidebars();
-		if ( empty( $sidebars ) ) {
+		if (empty($sidebars)) {
 			return;
 		} ?>
 
 		<div class="content">
 			<div class="row">
 				<?php
-				foreach ( $sidebars as $footer_sidebar ) {
-					if ( is_active_sidebar( $footer_sidebar ) ) {
-						echo '<div class="' . esc_attr( $this->the_sidebars_class() ) . '">';
-						dynamic_sidebar( $footer_sidebar );
+				foreach ($sidebars as $footer_sidebar) {
+					if (is_active_sidebar($footer_sidebar)) {
+						echo '<div class="' . esc_attr($this->the_sidebars_class()) . '">';
+						dynamic_sidebar($footer_sidebar);
 						echo '</div>';
 					}
 				}
 				?>
 			</div>
 		</div>
-		<hr/>
-		<?php
+		<hr />
+	<?php
 	}
 
 	/**
@@ -73,16 +78,17 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	 * @since  1.1.24
 	 * @access public
 	 */
-	public function the_footer_content() {
+	public function the_footer_content()
+	{
 
-		if ( apply_filters( 'hestia_filter_components_toggle', false, 'footer' ) === true ) {
+		if (apply_filters('hestia_filter_components_toggle', false, 'footer') === true) {
 			return;
 		}
 
 		hestia_before_footer_trigger();
 
-		?>
-		<footer class="footer <?php echo esc_attr( $this->the_footer_class() ); ?> footer-big">
+	?>
+		<footer class="footer <?php echo esc_attr($this->the_footer_class()); ?> footer-big">
 			<?php hestia_before_footer_content_trigger(); ?>
 			<div class="container">
 				<?php hestia_before_footer_widgets_trigger(); ?>
@@ -92,7 +98,7 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 			</div>
 			<?php hestia_after_footer_content_trigger(); ?>
 		</footer>
-		<?php
+<?php
 		hestia_after_footer_trigger();
 	}
 
@@ -103,8 +109,9 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	 *
 	 * @return mixed
 	 */
-	public function modify_footer_menu_classes( $classes ) {
-		if ( 'footer' !== $classes['theme_location'] ) {
+	public function modify_footer_menu_classes($classes)
+	{
+		if ('footer' !== $classes['theme_location']) {
 			return $classes;
 		}
 		$classes['menu_class'] .= ' ' . $this->add_footer_menu_alignment_class();
@@ -115,9 +122,10 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	/**
 	 * Function to display footer copyright and footer menu.
 	 */
-	private function wrapped_bottom_footer_content() {
+	private function wrapped_bottom_footer_content()
+	{
 		echo '<div class="hestia-bottom-footer-content">';
-		do_action( 'hestia_do_bottom_footer_content' );
+		do_action('hestia_do_bottom_footer_content');
 		echo '</div>';
 	}
 
@@ -125,7 +133,8 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	 * Function to display footer copyright and footer menu.
 	 * Also used as callback for selective refresh.
 	 */
-	public function bottom_footer_content() {
+	public function bottom_footer_content()
+	{
 		wp_nav_menu(
 			array(
 				'theme_location' => 'footer',
@@ -135,8 +144,8 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 			)
 		);
 
-		echo '<div class="copyright ' . esc_attr( $this->add_footer_copyright_alignment_class() ) . '">';
-		echo wp_kses_post( $hestia_general_credits );
+		echo '<div class="copyright ' . esc_attr($this->add_footer_copyright_alignment_class()) . '">';
+		//echo wp_kses_post( $hestia_general_credits );
 		echo '</div>';
 	}
 
@@ -145,12 +154,13 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	 *
 	 * @return string
 	 */
-	protected function add_footer_copyright_alignment_class() {
-		$hestia_copyright_alignment = get_theme_mod( 'hestia_copyright_alignment', 'right' );
-		if ( $hestia_copyright_alignment === 'left' ) {
+	protected function add_footer_copyright_alignment_class()
+	{
+		$hestia_copyright_alignment = get_theme_mod('hestia_copyright_alignment', 'right');
+		if ($hestia_copyright_alignment === 'left') {
 			return 'pull-left';
 		}
-		if ( $hestia_copyright_alignment === 'center' ) {
+		if ($hestia_copyright_alignment === 'center') {
 			return 'hestia-center';
 		}
 
@@ -162,12 +172,13 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	 *
 	 * @return string
 	 */
-	private function add_footer_menu_alignment_class() {
-		$hestia_copyright_alignment = get_theme_mod( 'hestia_copyright_alignment', 'right' );
-		if ( $hestia_copyright_alignment === 'left' ) {
+	private function add_footer_menu_alignment_class()
+	{
+		$hestia_copyright_alignment = get_theme_mod('hestia_copyright_alignment', 'right');
+		if ($hestia_copyright_alignment === 'left') {
 			return 'pull-right';
 		}
-		if ( $hestia_copyright_alignment === 'center' ) {
+		if ($hestia_copyright_alignment === 'center') {
 			return 'hestia-center';
 		}
 
@@ -177,11 +188,12 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	/**
 	 * Utility to get the footer class for color changes.
 	 */
-	private function the_footer_class() {
-		$footer_style = get_theme_mod( 'hestia_alternative_footer_style', 'black_footer' );
+	private function the_footer_class()
+	{
+		$footer_style = get_theme_mod('hestia_alternative_footer_style', 'black_footer');
 		$class        = 'footer-black';
 
-		if ( $footer_style === 'white_footer' ) {
+		if ($footer_style === 'white_footer') {
 			$class = '';
 		}
 
@@ -193,14 +205,15 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	 *
 	 * @return string the sidebar class
 	 */
-	private function the_sidebars_class() {
-		$number_of_sidebars = get_theme_mod( 'hestia_nr_footer_widgets', '3' );
+	private function the_sidebars_class()
+	{
+		$number_of_sidebars = get_theme_mod('hestia_nr_footer_widgets', '3');
 
-		if ( empty( $number_of_sidebars ) ) {
+		if (empty($number_of_sidebars)) {
 			return 'col-md-4';
 		}
 
-		$suffix = abs( 12 / $number_of_sidebars );
+		$suffix = abs(12 / $number_of_sidebars);
 		$class  = 'col-md-' . $suffix;
 
 		return $class;
@@ -211,20 +224,20 @@ class Hestia_Footer extends Hestia_Abstract_Main {
 	 *
 	 * @return bool
 	 */
-	private function does_footer_have_widgets() {
+	private function does_footer_have_widgets()
+	{
 		$sidebars = $this->get_footer_sidebars();
-		if ( empty( $sidebars ) ) {
+		if (empty($sidebars)) {
 			return false;
 		}
 
-		foreach ( $sidebars as $footer_sidebar ) {
-			$has_widgets = is_active_sidebar( $footer_sidebar );
-			if ( $has_widgets ) {
+		foreach ($sidebars as $footer_sidebar) {
+			$has_widgets = is_active_sidebar($footer_sidebar);
+			if ($has_widgets) {
 				return true;
 			}
 		}
 
 		return false;
 	}
-
 }

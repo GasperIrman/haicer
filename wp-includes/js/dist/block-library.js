@@ -8254,7 +8254,7 @@ const CommentsFormPlaceholder = () => {
     className: "comment-respond"
   }, (0,external_wp_element_namespaceObject.createElement)("h3", {
     className: "comment-reply-title"
-  }, (0,external_wp_i18n_namespaceObject.__)('Leave a Reply')), (0,external_wp_element_namespaceObject.createElement)("form", {
+  }, (0,external_wp_i18n_namespaceObject.__)('Dodaj komentar')), (0,external_wp_element_namespaceObject.createElement)("form", {
     noValidate: true,
     className: "comment-form",
     onSubmit: event => event.preventDefault()
