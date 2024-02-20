@@ -227,7 +227,7 @@ class Hestia_Additional_Views extends Hestia_Abstract_Main
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<h2 class="hestia-title text-center"><?php echo apply_filters('hestia_related_posts_title', esc_html__('Related Posts', 'hestia')); ?></h2>
+							<h2 class="hestia-title text-center"><?php echo apply_filters('hestia_related_posts_title', esc_html__('Podobne montaže', 'hestia')); ?></h2>
 							<div class="row">
 								<?php
 								while ($loop->have_posts()) :
